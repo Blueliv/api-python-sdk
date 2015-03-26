@@ -32,6 +32,10 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v1.1.0 - 2015 Mar 26**
+
++ Add Bot IPs feed API
+
 **v1.0.0 - 2015 Mar 05**
 
 + First version
