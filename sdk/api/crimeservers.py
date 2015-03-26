@@ -112,4 +112,4 @@ class CrimeServers(Resource):
         the method `update`, without a `last_update_date` parameter.
         """
         logger = logging.getLogger('download_all')
-        return update(last_updated_date=None)
+        return self.update(last_updated_date=None)

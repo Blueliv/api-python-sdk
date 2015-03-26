@@ -4,6 +4,7 @@ import logging
 import sys
 import os
 from api.crimeservers import CrimeServers
+from api.botips import BotIps
 
 
 class BluelivAPI():
@@ -24,3 +25,8 @@ class BluelivAPI():
                                           cache_ttl,
                                           out_of_date_time,
                                           http_timeout * 10)
+        self.bot_ips = BotIps(base_url,
+                              token,
+                              cache_ttl / 6,
+                              out_of_date_time / 4,
+                              http_timeout * 10)
