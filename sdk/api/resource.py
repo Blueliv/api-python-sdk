@@ -5,6 +5,7 @@ import json
 import requests
 from requests.auth import HTTPBasicAuth
 
+requests.packages.urllib3.disable_warnings()
 
 class Resource(object):
     """Generic REST resource of the Blueliv's API.
