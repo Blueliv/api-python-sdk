@@ -33,10 +33,9 @@ class Resource(object):
         try:
             r = requests.get(query, verify=False,
                              headers=self.headers, timeout=self.http_timeout)
-            r.raise_for_status
+            r.raise_for_status()
             response = r.json()
-        except Exception as e:
-            logger.error("Error downloading data from: {}"
-                         .format(query))
+        except Exception:
+            logger.exception("Error downloading data from: {}".format(query))
 
         return response
