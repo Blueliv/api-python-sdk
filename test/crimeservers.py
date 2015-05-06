@@ -4,6 +4,7 @@ import unittest
 import os
 import sys
 import datetime
+import logging
 from dateutil.tz import tzlocal
 from datetime import timedelta
 
@@ -22,7 +23,8 @@ class TestCrimeServersAPI(unittest.TestCase):
                                           token=self.__TEST_TOKEN,
                                           cache_ttl=3600000,
                                           out_of_date_time=24,
-                                          http_timeout=60)
+                                          http_timeout=60,
+                                          log_level=logging.NOTSET)
 
     def test_token_headers(self):
         self.assertEqual(self.crime_servers.headers,

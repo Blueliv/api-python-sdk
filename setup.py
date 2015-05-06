@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 
 setup(
     name='blueliv-python-sdk',
-    version='1.1.0',
+    version='1.2.0',
     description='Blueliv API SDK for Python',
-    url='https://github.com/BluelivSecurity/api-python-sdk',
+    url='https://github.com/Blueliv/api-python-sdk',
     author='Blueliv',
     author_email='community@blueliv.com',
     license='MIT',
@@ -27,4 +27,5 @@ setup(
     keywords='blueliv api crime servers bot ips security',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=['requests>=2.4.0, <= 2.5.1', 'python-dateutil>=2.4.0'],
+    test_requires=['mock']
 )

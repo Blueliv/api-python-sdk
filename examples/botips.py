@@ -5,13 +5,23 @@ from sdk.blueliv_api import BluelivAPI
 
 if __name__ == '__main__':
     __LOG_FILE = 'blueliv.log'
-    logging.basicConfig(filename=__LOG_FILE, level=logging.DEBUG)
+    logging.basicConfig(filename=__LOG_FILE)
     logger = logging.getLogger('main')
+
+    proxy = None
+    # If you have a proxy, comment the line above and uncomment
+    # these lines below:
+    """
+    proxy = {'http': '50.60.110.152:80',
+             'https': '50.60.110.152:80'}
+    """
     api = BluelivAPI(base_url='https://freeapi.blueliv.com',
-                     token='<INSERT YOUR TOKEN HERE>')
+                     token='<INSERT YOUR TOKEN HERE>',
+                     log_level=logging.INFO,
+                     proxy=proxy)
 
     # Get the last updatedAt if available from your local settings
-    last_date = "2015-01-26T16:22:38+0100"
+    last_date = "2015-05-06T10:40:00+0000"
     bot_ips, updatedAt = api.bot_ips.update(last_date)
     if updatedAt:
         print(updatedAt, bot_ips)

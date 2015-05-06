@@ -35,19 +35,29 @@ class BotIps(Resource):
     }
 
     def __init__(self, base_url, token,
-                 cache_ttl, out_of_date_time, http_timeout):
+                 cache_ttl, out_of_date_time, http_timeout,
+                 log_level=logging.NOTSET, proxy=None):
         """Arguments:
+            base_url -- the base url of the API
+            token -- the authentication token to access the API
             cache_ttl -- time-to-live (TTL) of the cache (in milliseconds).
             out_of_date_time -- number of (sliding) `windows` available at
             end-point `/recent`
-            http_timeout -- HTTP timeout (in seconds).
+            http_timeout -- HTTP timeout (in seconds)
+            log_level -- The log level that you want. Default: NOTSET
+            proxy -- The proxy that you are using to access the API. Default:
+            None. Format is: { "http": "http://user:pass@host:port/",
+                               "https": "http://user:pass@host:port/"}
         """
         super(BotIps, self).__init__(base_url=base_url,
                                      token=token,
                                      base_end_point='/v1/ip',
-                                     http_timeout=http_timeout)
+                                     http_timeout=http_timeout,
+                                     log_level=log_level,
+                                     proxy=proxy)
         self.cache_ttl = cache_ttl
         self.out_of_date_time = out_of_date_time
+        self.log_level = log_level
 
     def __get_endpoint(self, last_update_date, pos):
         """Returns the end-point to call given a
@@ -59,6 +69,7 @@ class BotIps(Resource):
                 one.
         """
         logger = logging.getLogger('__get_endpoint')
+        logger.setLevel(self.log_level)
 
         pos_prefix = 'pos_' if pos else ''
         now = DateUtils.now()
