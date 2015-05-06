@@ -32,6 +32,10 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v1.2.1 - 2015 May 06**
+
++ Change Travis CI script
+
 **v1.2.0 - 2015 May 06**
 
 + Add HTTPS host verification
