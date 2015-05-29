@@ -26,7 +26,7 @@ if __name__ == '__main__':
     if updatedAt:
         print(updatedAt, bot_ips)
         try:
-            # WORK WITH BOTIPS DATA
+            # WORK WITH NON-POS BOTIPS DATA
             pass
         except:
             # DO NOT SAVE updatedAt
@@ -41,7 +41,22 @@ if __name__ == '__main__':
     if updatedAt_pos:
         print(updatedAt_pos, pos_bot_ips)
         try:
-            # WORK WITH BOTIPS DATA
+            # WORK WITH POS BOTIPS DATA
+            pass
+        except:
+            # DO NOT SAVE updatedAt
+            pass
+        else:
+            # SAVE updatedAt
+            pass
+    else:
+        logger.error("Last updated date could not be retrieved")
+
+    full_bot_ips, updatedAt_full = api.bot_ips.update_full(last_date)
+    if updatedAt_full:
+        print(updatedAt_full, full_bot_ips)
+        try:
+            # WORK WITH FULL BOTIPS DATA
             pass
         except:
             # DO NOT SAVE updatedAt

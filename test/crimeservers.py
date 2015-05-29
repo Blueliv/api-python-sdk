@@ -33,19 +33,32 @@ class TestCrimeServersAPI(unittest.TestCase):
     def test_get_query_updated(self):
         now = DateUtils.now()
         self.assertEqual("/last",
-                         self.crime_servers._CrimeServers__get_endpoint(now))
+                         self.crime_servers._CrimeServers__get_endpoint(now,
+                                                                        False))
+        self.assertEqual("/test",
+                         self.crime_servers._CrimeServers__get_endpoint(now,
+                                                                        True))
 
     def test_get_query_out_of_date(self):
         out_date = DateUtils.now()-timedelta(days=1, minutes=1)
         self.assertEqual("/online",
-                         self.crime_servers._CrimeServers__get_endpoint(out_date))
+                         self.crime_servers._CrimeServers__get_endpoint(out_date,
+                                                                        False))
         self.assertEqual("/online",
-                         self.crime_servers._CrimeServers__get_endpoint(None))
+                         self.crime_servers._CrimeServers__get_endpoint(None,
+                                                                        False))
+        self.assertEqual("/test",
+                         self.crime_servers._CrimeServers__get_endpoint(None,
+                                                                        True))
 
     def test_get_query_not_updated(self):
         out_date = datetime.datetime.now(tzlocal())-timedelta(minutes=60*2+1)
         self.assertEqual("/recent",
-                         self.crime_servers._CrimeServers__get_endpoint(out_date))
+                         self.crime_servers._CrimeServers__get_endpoint(out_date,
+                                                                        False))
+        self.assertEqual("/test",
+                         self.crime_servers._CrimeServers__get_endpoint(out_date,
+                                                                        True))
 
 
 if __name__ == '__main__':

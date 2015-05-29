@@ -32,25 +32,57 @@ class TestBotIpsAPI(unittest.TestCase):
         now = DateUtils.now()
         self.assertEqual("/last",
                          self.bot_ips._BotIps__get_endpoint(now,
-                                                            pos=False))
+                                                            feed='',
+                                                            debug=False))
+        self.assertEqual("/test",
+                         self.bot_ips._BotIps__get_endpoint(now,
+                                                            feed='',
+                                                            debug=True))
 
     def test_get_query_out_of_date(self):
         out_date = DateUtils.now()-timedelta(minutes=10*20+1)
         self.assertEqual("/recent",
                          self.bot_ips._BotIps__get_endpoint(out_date,
-                                                            pos=False))
+                                                            feed='',
+                                                            debug=False))
         self.assertEqual("/recent",
                          self.bot_ips._BotIps__get_endpoint(None,
-                                                            pos=False))
+                                                            feed='',
+                                                            debug=False))
+        self.assertEqual("/test",
+                         self.bot_ips._BotIps__get_endpoint(None,
+                                                            feed='',
+                                                            debug=True))
 
     def test_pos_feed(self):
-      now = DateUtils.now()
-      self.assertEqual("/pos/last",
-                       self.bot_ips._BotIps__get_endpoint(now,
-                                                          pos=True))
-      self.assertEqual("/pos/recent",
-                       self.bot_ips._BotIps__get_endpoint(None,
-                                                          pos=True))
+        now = DateUtils.now()
+        self.assertEqual("/pos/last",
+                         self.bot_ips._BotIps__get_endpoint(now,
+                                                            feed='pos',
+                                                            debug=False))
+        self.assertEqual("/pos/recent",
+                         self.bot_ips._BotIps__get_endpoint(None,
+                                                            feed='pos',
+                                                            debug=False))
+        self.assertEqual("/test",
+                         self.bot_ips._BotIps__get_endpoint(None,
+                                                            feed='pos',
+                                                            debug=True))
+
+    def test_full_feed(self):
+        now = DateUtils.now()
+        self.assertEqual("/full/last",
+                         self.bot_ips._BotIps__get_endpoint(now,
+                                                            feed='full',
+                                                            debug=False))
+        self.assertEqual("/full/recent",
+                         self.bot_ips._BotIps__get_endpoint(None,
+                                                            feed='full',
+                                                            debug=False))
+        self.assertEqual("/test",
+                         self.bot_ips._BotIps__get_endpoint(None,
+                                                            feed='full',
+                                                            debug=True))
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestBotIpsAPI)

@@ -30,7 +30,8 @@ class CrimeServers(Resource):
     __END_POINTS = {
         'online': '/online',
         'recent': '/recent',
-        'last': '/last'
+        'last': '/last',
+        'debug': '/test'
     }
 
     def __init__(self, base_url, token,
@@ -58,15 +59,19 @@ class CrimeServers(Resource):
         self.out_of_date_time = out_of_date_time
         self.log_level = log_level
 
-    def __get_endpoint(self, last_update_date):
+    def __get_endpoint(self, last_update_date, debug):
         """Returns the end-point to call given a
         date (`/online`, `/recent` or `/last`).
         Arguments:
             last_update_date -- the date of the last update
             the user has saved locally.
+            debug -- Debug mode (call always '/test' resource)
         """
         logger = logging.getLogger('__get_endpoint')
         logger.setLevel(self.log_level)
+
+        if debug:
+            return self.__END_POINTS['debug']
 
         now = DateUtils.now()
         now_str = DateUtils.to_iso_date(now)
@@ -96,19 +101,20 @@ class CrimeServers(Resource):
                     last_update_date))
                 return self.__END_POINTS['last']
 
-    def update(self, last_updated_date=None):
+    def update(self, last_updated_date=None, debug=False):
         """Returns a list of Crime Servers (either an update to the current feed,
            or all of it) and the date when the updated occurred.
-
             Arguments:
                 last_updated_date -- last updated date, saved locally. It is
                 used to know if the local client is up-to-date, partially
                 outdated or fully outdated regarding to Blueliv Crime Servers'
                 API.
+                debug -- Debug mode (call always '/test' resource)
         """
         logger = logging.getLogger('update')
         url = self.base_url + self.__get_endpoint(
-            DateUtils.to_iso_date(last_updated_date))
+            DateUtils.to_iso_date(last_updated_date),
+            debug)
         updatedAt = None
         crimeservers = None
         response = self.get(url)
@@ -118,9 +124,11 @@ class CrimeServers(Resource):
 
         return (crimeservers, updatedAt)
 
-    def download_all(self):
+    def download_all(self, debug=False):
         """Downloads the complete Crime Servers' feed. It is a short-hand to
         the method `update`, without a `last_update_date` parameter.
+          Arguments:
+            debug -- Debug mode (call always '/test' resource)
         """
         logger = logging.getLogger('download_all')
-        return self.update(last_updated_date=None)
+        return self.update(last_updated_date=None, debug=debug)

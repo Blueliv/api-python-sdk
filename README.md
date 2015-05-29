@@ -32,6 +32,11 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v1.3.0 - 2015 May 29**
+
++ Add debug mode
++ Add `full` BotIPs feed resource
+
 **v1.2.1 - 2015 May 06**
 
 + Change Travis CI script
