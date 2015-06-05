@@ -20,19 +20,51 @@ if __name__ == '__main__':
                      log_level=logging.INFO,
                      proxy=proxy)
 
-    # Get the last updatedAt if available from your local settings
-    last_date = "2015-05-06T10:40:00+0000"
-    crimeservers, updatedAt = api.crime_servers.update(last_date)
-    if updatedAt:
-        print(updatedAt, crimeservers)
-        try:
-            # WORK WITH CRIMESERVERS DATA
-            pass
-        except:
-            # DO NOT SAVE updatedAt
-            pass
-        else:
-            # SAVE updatedAt
-            pass
+    # Get available resources 
+    print(api.crime_servers.get_resources())
+    # Get online crime servers
+    response = api.crime_servers.online()
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        #print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
     else:
-        logger.error("Last updated date could not be retrieved")
+        print('Success!')
+
+    """
+    # Get recent crime servers
+    response = api.crime_servers.recent()
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        #print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
+    else:
+        print('Success!')
+
+    # Get last crime servers
+    response = api.crime_servers.last()
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        #print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
+    else:
+        print('Success!')
+    """

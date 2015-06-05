@@ -20,49 +20,49 @@ if __name__ == '__main__':
                      log_level=logging.INFO,
                      proxy=proxy)
 
-    # Get the last updatedAt if available from your local settings
-    last_date = "2015-05-06T10:40:00+0000"
-    bot_ips, updatedAt = api.bot_ips.update(last_date)
-    if updatedAt:
-        print(updatedAt, bot_ips)
-        try:
-            # WORK WITH NON-POS BOTIPS DATA
-            pass
-        except:
-            # DO NOT SAVE updatedAt
-            pass
-        else:
-            # SAVE updatedAt
-            pass
+    # Get available resources
+    print(api.bot_ips.get_resources())
+    # Get last non-POS bot ips
+    response = api.bot_ips.last('non-pos')
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
     else:
-        logger.error("Last updated date could not be retrieved")
+        print('Success!')
 
-    pos_bot_ips, updatedAt_pos = api.bot_ips.update_pos(last_date)
-    if updatedAt_pos:
-        print(updatedAt_pos, pos_bot_ips)
-        try:
-            # WORK WITH POS BOTIPS DATA
-            pass
-        except:
-            # DO NOT SAVE updatedAt
-            pass
-        else:
-            # SAVE updatedAt
-            pass
+    # Get recent POS bot ips
+    response = api.bot_ips.recent('pos')
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
     else:
-        logger.error("Last updated date could not be retrieved")
+        print('Success!')
 
-    full_bot_ips, updatedAt_full = api.bot_ips.update_full(last_date)
-    if updatedAt_full:
-        print(updatedAt_full, full_bot_ips)
-        try:
-            # WORK WITH FULL BOTIPS DATA
-            pass
-        except:
-            # DO NOT SAVE updatedAt
-            pass
-        else:
-            # SAVE updatedAt
-            pass
+    # Get last full bot ips
+    response = api.bot_ips.last('full')
+    print(response)
+    try:
+        # WORK WITH BOT IPS DATA
+        # Get all the items returned
+        print(response.updated_at)
+        print(response.total_size)
+        print(response.items)  # botips
+        print(response.next_update)
+    except Exception as e:
+        logger.error('{}'.format(e))
     else:
-        logger.error("Last updated date could not be retrieved")
+        print('Success!')

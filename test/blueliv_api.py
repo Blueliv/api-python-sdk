@@ -8,8 +8,7 @@ import mock
 # Change path so we find sdk
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from sdk.blueliv_api import BluelivAPI
-from sdk.api.crimeservers import CrimeServers
-from sdk.api.date_utils import DateUtils
+from sdk.api.resource import Resource
 
 
 class TestBluelivAPI(unittest.TestCase):
@@ -36,11 +35,11 @@ class TestBluelivAPI(unittest.TestCase):
 
     def test_crimeservers_api(self):
         self.assertIsNotNone(self.api.crime_servers)
-        self.assertTrue(isinstance(self.api.crime_servers, CrimeServers))
+        self.assertTrue(isinstance(self.api.crime_servers, Resource))
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_has_proxy_in_request(self, mock_get):
-        response = self.api.crime_servers.download_all()
+        response = self.api.crime_servers.online()
         self.assertIn(mock.call(self.api.base_url + '/v1/crimeserver/online',
                                 headers={'Authorization': 'bearer test'},
                                 proxies=self.proxy,

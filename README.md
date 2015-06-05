@@ -20,8 +20,8 @@ If you wish to install the current `master`, use the following command (Note tha
 
 #### Specific Versions 
 To install a specific version of the package with `pip` (recommended), run the following command 
-(This example installs the v1.0.0 tag. Replace the version tag with the one you want):  
-`pip install git+git://github.com/Blueliv/api-python-sdk@v1.0.0`
+(This example installs the v2.0.0 tag. Replace the version tag with the one you want):  
+`pip install git+git://github.com/Blueliv/api-python-sdk@v2.0.0`
 
 #### requirements.txt
 If you're using pip with `requirements.txt`, add the following line:  
@@ -31,6 +31,10 @@ If you're using pip with `requirements.txt`, add the following line:
 Detailed documentation about Blueliv's API is available on the <a href="https://github.com/Blueliv/api-python-sdk/wiki/Blueliv-REST-API-Documentation" target="_blank">Blueliv API Wiki</a>.
 
 ## Changelog
+
+**v2.0.0 - 2015 June 5**
+
++ Refactor of the SDK (breaking changes!)
 
 **v1.3.0 - 2015 May 29**
 
