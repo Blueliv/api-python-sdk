@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blueliv-python-sdk',
-    version='2.0.0',
+    version='2.0.1',
     description='Blueliv API SDK for Python',
     url='https://github.com/Blueliv/api-python-sdk',
     author='Blueliv',

@@ -32,6 +32,10 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v2.0.1 - 2015 June 16**
+
++ Added crimeservers_stats example
+
 **v2.0.0 - 2015 June 5**
 
 + Refactor of the SDK (breaking changes!)
