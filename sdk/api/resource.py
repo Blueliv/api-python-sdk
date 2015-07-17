@@ -83,6 +83,49 @@ class Resource(object):
                     'test': '/test'
                 }
             }
+        },
+        'malwares': {
+            'items': 'malwares',
+            'endpoint': '/v1/malware',
+            'feeds': {
+                'all': {
+                    'recent': '/recent',
+                    'last': '/last',
+                    'lastday' : '/lastday'
+                },
+                'test': {
+                    'test': '/test'
+                }
+            }
+        },
+        'hacktivism_country': {
+            'items': 'countries',
+            'endpoint': '/v1/hacktivism',
+            'feeds': {
+                'all': {
+                    'recent': '/country/recent',
+                    'last': '/country/last',
+                    'lastday' : '/country/lastday'
+                },
+                'test': {
+                    'test': '/test'
+                }
+            }
+        },
+        'hacktivism_ops': {
+            'items': 'hashtags',
+            'endpoint': '/v1/hacktivism',
+            'feeds': {
+                'all': {
+                    'current': '/ops/current',
+                    'recent': '/ops/recent',
+                    'last': '/ops/last',
+                    'lastday' : '/ops/lastday'
+                },
+                'test': {
+                    'test': '/test'
+                }
+            }
         }
     }
 
@@ -138,6 +181,12 @@ class Resource(object):
 
     def last(self, feed_type='all'):
         return self.__call_endpoint('last', feed_type)
+
+    def lastday(self, feed_type='all'):
+        return self.__call_endpoint('lastday', feed_type)
+
+    def current(self, feed_type='all'):
+        return self.__call_endpoint('current', feed_type)
 
     def test(self):
         return self.__call_endpoint('test', 'test')

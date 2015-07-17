@@ -36,3 +36,24 @@ class BluelivAPI():
                                 http_timeout * 10,
                                 log_level,
                                 proxy)
+
+        self.malwares = Resource(base_url,
+                                'malwares',
+                                token,
+                                http_timeout * 10,
+                                log_level,
+                                proxy)
+
+        self.hacktivism_country = Resource(base_url,
+                                'hacktivism_country',
+                                token,
+                                http_timeout * 10,
+                                log_level,
+                                proxy)
+
+        self.hacktivism_ops = Resource(base_url,
+                                'hacktivism_ops',
+                                token,
+                                http_timeout * 10,
+                                log_level,
+                                proxy)

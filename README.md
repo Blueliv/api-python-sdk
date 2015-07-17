@@ -32,6 +32,11 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v2.1.0 - 2015 July 17**
+
++ Added malware feed
++ Added hacktivism feed
+
 **v2.0.1 - 2015 June 16**
 
 + Added crimeservers_stats example

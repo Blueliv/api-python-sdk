@@ -38,6 +38,21 @@ class TestResourcesAPI(unittest.TestCase):
                                      token=self.__TEST_TOKEN,
                                      http_timeout=60)
 
+        self.malwares = Resource(base_url='https://api.blueliv.com',
+                                     name='malwares',
+                                     token=self.__TEST_TOKEN,
+                                     http_timeout=60)
+
+        self.hacktivism_ops = Resource(base_url='https://api.blueliv.com',
+                                     name='hacktivism_ops',
+                                     token=self.__TEST_TOKEN,
+                                     http_timeout=60)
+
+        self.hacktivism_country = Resource(base_url='https://api.blueliv.com',
+                                     name='hacktivism_country',
+                                     token=self.__TEST_TOKEN,
+                                     http_timeout=60)
+
     def test_token_headers(self):
         self.assertEqual(self.bot_ips.headers,
                          {"Authorization": "bearer {}".format(self.__TEST_TOKEN)})
@@ -108,6 +123,45 @@ class TestResourcesAPI(unittest.TestCase):
 
         self.bot_ips.last(feed_type='pos')
         self.assertIn(mock.call(self.bot_ips.base_url + '/v1/ip/pos/last', 
+                      headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
+                      proxies=None,
+                      timeout=60,
+                      verify=True), mock_get.call_args_list)
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_malwares__feed(self, mock_get):
+        self.malwares.recent()
+        self.assertIn(mock.call(self.bot_ips.base_url + '/v1/malware/recent',
+                      headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
+                      proxies=None,
+                      timeout=60,
+                      verify=True), mock_get.call_args_list)
+
+        self.malwares.last()
+        self.assertIn(mock.call(self.bot_ips.base_url + '/v1/malware/last', 
+                      headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
+                      proxies=None,
+                      timeout=60,
+                      verify=True), mock_get.call_args_list)
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_hacktivism__feed(self, mock_get):
+        self.hacktivism_ops.recent()
+        self.assertIn(mock.call(self.bot_ips.base_url + '/v1/hacktivism/ops/recent',
+                      headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
+                      proxies=None,
+                      timeout=60,
+                      verify=True), mock_get.call_args_list)
+
+        self.hacktivism_country.last()
+        self.assertIn(mock.call(self.bot_ips.base_url + '/v1/hacktivism/country/last', 
+                      headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
+                      proxies=None,
+                      timeout=60,
+                      verify=True), mock_get.call_args_list)
+
+        self.hacktivism_ops.current()
+        self.assertIn(mock.call(self.bot_ips.base_url + '/v1/hacktivism/ops/current', 
                       headers={'Authorization': 'bearer {}'.format(self.__TEST_TOKEN)},
                       proxies=None,
                       timeout=60,
