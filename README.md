@@ -14,17 +14,17 @@ To use Bluelivs's Python API module, you need to place the package `api-python-s
 
 ### Installing with `pip`
 
-#### Master 
-If you wish to install the current `master`, use the following command (Note that `master` contains the latest revisions and is largely considered "stable" but it is not an official packaged release. If you want the latest packaged release, use the latest tag number):  
+#### Master
+If you wish to install the current `master`, use the following command (Note that `master` contains the latest revisions and is largely considered "stable" but it is not an official packaged release. If you want the latest packaged release, use the latest tag number):
 `pip install git+git://github.com/Blueliv/api-python-sdk`
 
-#### Specific Versions 
-To install a specific version of the package with `pip` (recommended), run the following command 
-(This example installs the v2.0.0 tag. Replace the version tag with the one you want):  
+#### Specific Versions
+To install a specific version of the package with `pip` (recommended), run the following command
+(This example installs the v2.0.0 tag. Replace the version tag with the one you want):
 `pip install git+git://github.com/Blueliv/api-python-sdk@v2.0.0`
 
 #### requirements.txt
-If you're using pip with `requirements.txt`, add the following line:  
+If you're using pip with `requirements.txt`, add the following line:
 `git+git://github.com/Blueliv/api-python-sdk`
 
 ## API Documentation
@@ -32,14 +32,17 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v2.1.1 - 2015 July 21**
++ Add ``API_CLIENT`` and ``USER_AGENT`` to REST requests
+
 **v2.1.0 - 2015 July 17**
 
-+ Added malware feed
-+ Added hacktivism feed
++ Add malware feed
++ Add hacktivism feed
 
 **v2.0.1 - 2015 June 16**
 
-+ Added crimeservers_stats example
++ Add crimeservers_stats example
 
 **v2.0.0 - 2015 June 5**
 

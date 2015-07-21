@@ -1,9 +1,7 @@
 # -*- coding: utf8 -*-
 
 import logging
-import json
 import requests
-from requests.auth import HTTPBasicAuth
 
 
 class InvalidResource(Exception):
@@ -25,10 +23,10 @@ class Response(object):
         504: 'Server timeout'
     }
 
-    def __init__(self, status_code, items, 
+    def __init__(self, status_code, items,
                  updated_at, next_update, total_size):
         self.status_code = status_code
-        self.error_msg = self.__MESSAGES[status_code] if status_code in self.__MESSAGES else 'Could not connect' 
+        self.error_msg = self.__MESSAGES[status_code] if status_code in self.__MESSAGES else 'Could not connect'
         self.items = items
         self.updated_at = updated_at
         self.next_update = next_update
@@ -47,6 +45,9 @@ class Resource(object):
     """Generic REST resource of Blueliv's API.
     Every resource should extend this class.
     """
+
+    __USER_AGENT = "SDK v2"
+    __API_CLIENT = "6918a2e6-86e8-4be3-9800-e658dd37e760"
 
     __RESOURCES = {
         'crimeservers': {
@@ -91,7 +92,7 @@ class Resource(object):
                 'all': {
                     'recent': '/recent',
                     'last': '/last',
-                    'lastday' : '/lastday'
+                    'lastday': '/lastday'
                 },
                 'test': {
                     'test': '/test'
@@ -105,7 +106,7 @@ class Resource(object):
                 'all': {
                     'recent': '/country/recent',
                     'last': '/country/last',
-                    'lastday' : '/country/lastday'
+                    'lastday': '/country/lastday'
                 },
                 'test': {
                     'test': '/test'
@@ -120,7 +121,7 @@ class Resource(object):
                     'current': '/ops/current',
                     'recent': '/ops/recent',
                     'last': '/ops/last',
-                    'lastday' : '/ops/lastday'
+                    'lastday': '/ops/lastday'
                 },
                 'test': {
                     'test': '/test'
@@ -148,6 +149,8 @@ class Resource(object):
         self.name = name
         self.http_timeout = http_timeout
         self.headers = {"Authorization": "bearer {0}".format(token)} if token else {}
+        self.headers["User-Agent"] = self.__USER_AGENT
+        self.headers["X-API-CLIENT"] = self.__API_CLIENT
         self.proxy = proxy
         self.log_level = log_level
 
@@ -194,7 +197,7 @@ class Resource(object):
     def get_resources(self):
         return self.__RESOURCES[self.name]['feeds']
 
-    def get(self, url): 
+    def get(self, url):
         """Downloads and parses to JSON a given resource. Returns
         the parsed response."""
         logger = logging.getLogger('get')
@@ -202,7 +205,7 @@ class Resource(object):
         response = None
         status_code = None
         try:
-            r = requests.get(url, verify=True, headers=self.headers,
+            r = requests.get("{0}?key={1}".format(url, self.__API_CLIENT), verify=True, headers=self.headers,
                              proxies=self.proxy, timeout=self.http_timeout)
             r.raise_for_status()
             status_code = r.status_code
