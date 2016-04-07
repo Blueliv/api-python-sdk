@@ -1,7 +1,8 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 
 import logging
 import requests
+import csv
 
 
 class InvalidResource(Exception):
@@ -23,14 +24,48 @@ class Response(object):
         504: 'Server timeout'
     }
 
+    __HEADERS = {
+        'crimeservers': ['_id', 'url', 'type', 'subType', 'country', 'countryName', 'city',
+                         'status', 'host', 'latitude', 'longitude', 'ip', 'updatedAt', 'asnId',
+                         'asnDesc', 'firstSeenAt', 'lastSeenAt', 'confidence'],
+        'botips': ['botnetFamily', 'ip', 'country', 'countryName', 'latitude', 'longitude',
+                   'seenAt', 'botnetUrl', 'botnetIp', 'destinationPort', 'botnetType',
+                   'operatingSystem', 'botId', 'city', 'portalUrl', 'portalDomain', 'createdAt'],
+        # Key 'signatures' not printed yet in csv
+        'malwares': ['filename', 'contentType', 'md5', 'sha1', 'sha256', 'analyzedAt',
+                     'firstSeenAt', 'fileType', 'fileSize', 'malwareType', 'malwareFamily',
+                     'confidence', 'architecture'],
+        'hacktivism_country': ['name', 'iso', 'total'],
+        'hacktivism_ops': ['hashTag', 'total'],
+    }
+
     def __init__(self, status_code, items,
-                 updated_at, next_update, total_size):
+                 updated_at, next_update, total_size, name):
         self.status_code = status_code
         self.error_msg = self.__MESSAGES[status_code] if status_code in self.__MESSAGES else 'Could not connect'
         self.items = items
         self.updated_at = updated_at
         self.next_update = next_update
         self.total_size = total_size
+        self.name = name
+
+    def get_csv_file(self, output_file=None):
+        if output_file == None:
+            output_file = self.name
+
+        with open(output_file + '.csv', 'wb') as f:
+            w = csv.writer(f)
+            w.writerow(self.__HEADERS[self.name])
+
+            for item in self.items:
+                row = []
+                for k in self.__HEADERS[self.name]:
+                    value = item.get(k, "")
+                    if type(value) is list:
+                        row.append(",".join(value))
+                    else:
+                        row.append(value)
+                w.writerow([unicode(s).encode("utf-8") for s in row])
 
     def __str__(self):
         return "\t-> Updated At: {}\n\t-> Next Update: {}\n\t-> Number of Items: {}\nStatus Code: {}\nErrors: {}\n".format(
@@ -174,7 +209,7 @@ class Resource(object):
                 nextUpdate = response["meta"]["nextUpdate"]
                 total_size = response["meta"]["totalSize"]
 
-        return Response(status_code, items, updatedAt, nextUpdate, total_size)
+        return Response(status_code, items, updatedAt, nextUpdate, total_size, self.name)
 
     def online(self, feed_type='all'):
         return self.__call_endpoint('online', feed_type)
