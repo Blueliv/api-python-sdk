@@ -32,6 +32,9 @@ Detailed documentation about Blueliv's API is available on the <a href="https://
 
 ## Changelog
 
+**v2.2.0 - 2016 April 8**
++ Add get_csv_file to retrieve a csv format for each resource
+
 **v2.1.1 - 2015 July 21**
 + Add ``API_CLIENT`` and ``USER_AGENT`` to REST requests
 
