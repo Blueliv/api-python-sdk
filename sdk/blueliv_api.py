@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 
 import logging
 import sys
@@ -57,3 +57,11 @@ class BluelivAPI():
                                 http_timeout * 10,
                                 log_level,
                                 proxy)
+
+        self.attacking_ips = Resource(base_url,
+                                'attacking_ips',
+                                token,
+                                http_timeout * 10,
+                                log_level,
+                                proxy)
+
