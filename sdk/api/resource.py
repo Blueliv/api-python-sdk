@@ -37,6 +37,9 @@ class Response(object):
                      'confidence', 'architecture'],
         'hacktivism_country': ['name', 'iso', 'total'],
         'hacktivism_ops': ['hashTag', 'total'],
+        # Key 'source' and 'destination' not printed yet in csv
+        'attacking_ips': ['_id', 'attackType', 'firstEvent', 'lastEvent', 'numEvents',
+                          'createdAt', 'updatedAt']
     }
 
     def __init__(self, status_code, items,
@@ -141,10 +144,7 @@ class Resource(object):
                 'all': {
                     'recent': '/country/recent',
                     'last': '/country/last',
-                    'lastday': '/country/lastday'
-                },
-                'test': {
-                    'test': '/test'
+                    'current': '/country/current'
                 }
             }
         },
@@ -155,11 +155,17 @@ class Resource(object):
                 'all': {
                     'current': '/ops/current',
                     'recent': '/ops/recent',
-                    'last': '/ops/last',
-                    'lastday': '/ops/lastday'
-                },
-                'test': {
-                    'test': '/test'
+                    'last': '/ops/last'
+                }
+            }
+        },
+        'attacking_ips': {
+            'items': 'attacks',
+            'endpoint': '/v1/attack',
+            'feeds': {
+                'all': {
+                    'recent': '/recent',
+                    'last': '/last'
                 }
             }
         }
@@ -242,8 +248,8 @@ class Resource(object):
         try:
             r = requests.get("{0}?key={1}".format(url, self.__API_CLIENT), verify=True, headers=self.headers,
                              proxies=self.proxy, timeout=self.http_timeout)
-            r.raise_for_status()
             status_code = r.status_code
+            r.raise_for_status()
             response = r.json()
         except Exception:
             logger.exception("Error downloading data from: {}".format(url))
