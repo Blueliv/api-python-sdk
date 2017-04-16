@@ -78,6 +78,7 @@ class Response(object):
             self.status_code,
             self.error_msg)
 
+requests.packages.urllib3.disable_warnings()
 
 class Resource(object):
     """Generic REST resource of Blueliv's API.
