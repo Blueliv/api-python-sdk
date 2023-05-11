@@ -1,4 +1,6 @@
-# Blueliv API Python SDK [![Build Status](https://secure.travis-ci.org/Blueliv/api-python-sdk.png?branch=master)](http://travis-ci.org/Blueliv/api-python-sdk)
+# This repositoy is deprecated and has been archived. Please contact customer support if you need help. Thanks
+
+# Blueliv API Python SDK
 
 Blueliv provides a simple Python-based API to access Blueliv's API and integrate it with other tools. This is the official API that is maintained by Blueliv ([community@blueliv.com](mailto:community@blueliv.com)).
 
